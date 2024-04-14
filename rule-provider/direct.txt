@@ -1,2 +1,3 @@
 time.windows.com
 *.tailscale.com
+*.right.com
