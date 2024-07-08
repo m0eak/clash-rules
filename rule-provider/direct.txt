@@ -1,4 +1,0 @@
-time.windows.com
-*.tailscale.com
-*.right.com
-*.m0eak.cc
