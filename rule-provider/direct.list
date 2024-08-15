@@ -1,6 +1,7 @@
 DOMAIN-SUFFIX,time.windows.com
 DOMAIN-KEYWORD,m0eak
 DOMAIN-KEYWORD,yecaoyun
+DOMAIN-SUFFIX,*.ottdns.com
 # DDNS
 DOMAIN-SUFFIX,ddns.oray.com
 DOMAIN-SUFFIX,4.ipw.cn
