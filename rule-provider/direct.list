@@ -5,6 +5,7 @@ DOMAIN-SUFFIX,*.ottdns.com
 DOMAIN-SUFFIX,test-ipv6.com
 DOMAIN-SUFFIX,hdarea.club
 DOMAIN-SUFFIX,hf-mirror.com
+cloudflare.epicgamescdn.com
 # DDNS
 DOMAIN-SUFFIX,ddns.oray.com
 DOMAIN-SUFFIX,4.ipw.cn
