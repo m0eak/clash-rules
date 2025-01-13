@@ -14,3 +14,7 @@ DOMAIN-SUFFIX,myip4.ipip.net
 DOMAIN-SUFFIX,ip.3322.net
 DOMAIN-SUFFIX,v4.myip.la
 DOMAIN-SUFFIX,ipv4.ddnspod.com
+# Process name
+PROCESS-NAME,mosdns
+PROCESS-NAME,qbittorrent-nox
+PROCESS-NAME,tailscaled
