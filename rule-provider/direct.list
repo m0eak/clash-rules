@@ -7,6 +7,8 @@ DOMAIN-SUFFIX,test-ipv6.com
 DOMAIN-SUFFIX,hdarea.club
 DOMAIN-SUFFIX,hf-mirror.com
 DOMAIN-SUFFIX,cloudflare.epicgamescdn.com
+DOMAIN-KEYWORD,adobe
+DOMAIN-KEYWORD,photoshop
 # DDNS
 DOMAIN-SUFFIX,ddns.oray.com
 DOMAIN-SUFFIX,4.ipw.cn
