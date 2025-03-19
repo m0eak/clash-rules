@@ -1,6 +1,9 @@
 # Custom
 DOMAIN-SUFFIX,time.windows.com
 DOMAIN-KEYWORD,m0eak
+DOMAIN-KEYWORD,ddns
+DOMAIN-KEYWORD,dyndns
+DOMAIN-KEYWORD,checkip
 DOMAIN-KEYWORD,yecaoyun
 DOMAIN-SUFFIX,*.ottdns.com
 DOMAIN-SUFFIX,test-ipv6.com
