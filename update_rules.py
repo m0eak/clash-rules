@@ -135,10 +135,16 @@ def merge_rules(sources, category_name):
 def main():
     """更新所有规则文件的主函数。"""
     # 确保输出目录存在
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    if not os.path.exists(OUTPUT_DIR):
+        print(f"创建输出目录 {OUTPUT_DIR}")
+        os.makedirs(OUTPUT_DIR, exist_ok=True)
+    else:
+        print(f"输出目录 {OUTPUT_DIR} 已存在")
     
     # 读取配置
+    print(f"读取配置文件 {CONFIG_FILE}")
     categories = read_config(CONFIG_FILE)
+    print(f"找到 {len(categories)} 个类别: {', '.join(categories.keys())}")
     
     # 处理每个类别
     for category, urls in categories.items():
@@ -147,6 +153,7 @@ def main():
         
         # 写入输出文件
         output_file = os.path.join(OUTPUT_DIR, f"{category}.list")
+        print(f"写入文件 {output_file}")
         with open(output_file, 'w') as f:
             f.write(merged_content)
         
