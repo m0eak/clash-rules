@@ -2,7 +2,7 @@ name: 更新 Clash 规则
 
 on:
   schedule:
-    - cron: '16 0 * * *'  
+    - cron: '0 17 * * *'  
   workflow_dispatch:  # 允许手动触发
 
 jobs:
