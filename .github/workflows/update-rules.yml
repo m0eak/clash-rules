@@ -1,6 +1,11 @@
 name: 更新 Clash 规则
 
 on:
+  push:
+    paths:
+      - 'rule_sources.conf'  # 当配置文件被修改时触发
+      - 'update_rules.py'    # 当脚本被修改时触发
+      - '.github/workflows/update-rules.yml'  # 当工作流文件被修改时触发
   schedule:
     - cron: '0 17 * * *'  
   workflow_dispatch:  # 允许手动触发
