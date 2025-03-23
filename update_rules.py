@@ -14,29 +14,48 @@ def read_config(config_file):
     categories = {}
     current_category = None
     
-    with open(config_file, 'r') as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith('#'):
-                continue
+    print(f"开始读取配置文件: {config_file}")
+    try:
+        with open(config_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+            print(f"配置文件内容:\n{content}")
+            
+            for line in content.split('\n'):
+                line = line.strip()
+                print(f"处理行: '{line}'")
                 
-            if line.startswith('##'):
-                current_category = line[2:].strip()
-                categories[current_category] = []
-            elif current_category and line.startswith('http'):
-                categories[current_category].append(line)
-    
-    return categories
+                if not line or line.startswith('#'):
+                    print("  跳过空行或注释行")
+                    continue
+                    
+                if line.startswith('##'):
+                    current_category = line[2:].strip()
+                    print(f"  找到类别: '{current_category}'")
+                    categories[current_category] = []
+                elif current_category and line.startswith('http'):
+                    print(f"  添加URL到类别 '{current_category}': {line}")
+                    categories[current_category].append(line)
+                else:
+                    print(f"  无法识别的行: '{line}'")
+        
+        print(f"解析完成，找到类别: {list(categories.keys())}")
+        return categories
+    except Exception as e:
+        print(f"读取配置文件时出错: {e}")
+        return {}
 
 def download_rule(url):
     """从 URL 下载规则内容。"""
     try:
+        print(f"下载规则: {url}")
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
         }
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
-        return response.text
+        content = response.text
+        print(f"成功下载，内容长度: {len(content)} 字符")
+        return content
     except Exception as e:
         print(f"下载 {url} 时出错: {e}")
         return None
@@ -140,6 +159,10 @@ def main():
         os.makedirs(OUTPUT_DIR, exist_ok=True)
     else:
         print(f"输出目录 {OUTPUT_DIR} 已存在")
+    
+    # 显示当前工作目录
+    print(f"当前工作目录: {os.getcwd()}")
+    print(f"目录列表: {os.listdir('.')}")
     
     # 读取配置
     print(f"读取配置文件 {CONFIG_FILE}")
