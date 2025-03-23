@@ -24,15 +24,22 @@ def read_config(config_file):
                 line = line.strip()
                 print(f"处理行: '{line}'")
                 
-                if not line or line.startswith('#'):
-                    print("  跳过空行或注释行")
+                # 空行跳过
+                if not line:
+                    print("  跳过空行")
                     continue
-                    
-                if line.startswith('##'):
-                    current_category = line[2:].strip()
+                
+                # 识别类别行 (以 ## 开头)
+                if line.startswith('## '):
+                    current_category = line[3:].strip()  # 去掉 '## ' 前缀
                     print(f"  找到类别: '{current_category}'")
                     categories[current_category] = []
-                elif current_category and line.startswith('http'):
+                # 识别普通注释行 (以 # 开头但不是 ##)
+                elif line.startswith('#') and not line.startswith('##'):
+                    print("  跳过注释行")
+                    continue
+                # 识别URL行
+                elif current_category is not None and (line.startswith('http://') or line.startswith('https://')):
                     print(f"  添加URL到类别 '{current_category}': {line}")
                     categories[current_category].append(line)
                 else:
