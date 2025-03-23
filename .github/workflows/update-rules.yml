@@ -38,3 +38,9 @@ jobs:
         git add -A
         git status  # 显示哪些文件被修改
         git diff --quiet && git diff --staged --quiet || (git commit -m "更新规则 - $(date +'%Y-%m-%d')" && git push)
+        
+    - name: 删除工作流运行
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        retain_days: 5
+        keep_minimum_runs: 10
