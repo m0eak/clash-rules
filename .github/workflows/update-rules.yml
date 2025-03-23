@@ -6,6 +6,7 @@ on:
       - 'rule_sources.conf'  # 当配置文件被修改时触发
       - 'update_rules.py'    # 当脚本被修改时触发
       - '.github/workflows/update-rules.yml'  # 当工作流文件被修改时触发
+      - 'rule-provider/custom/**'  # 当custom目录下任何文件被修改时触发
   schedule:
     - cron: '0 17 * * *'  # 每天 UTC 时间 16:00 运行，对应北京时间 0:00
   workflow_dispatch:  # 允许手动触发
