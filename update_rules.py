@@ -169,12 +169,14 @@ def main():
     
     # 显示当前工作目录
     print(f"当前工作目录: {os.getcwd()}")
-    print(f"目录列表: {os.listdir('.')}")
     
     # 读取配置
     print(f"读取配置文件 {CONFIG_FILE}")
     categories = read_config(CONFIG_FILE)
     print(f"找到 {len(categories)} 个类别: {', '.join(categories.keys())}")
+    
+    # 跟踪是否有任何文件被更新
+    any_file_updated = False
     
     # 处理每个类别
     for category, urls in categories.items():
@@ -183,11 +185,37 @@ def main():
         
         # 写入输出文件
         output_file = os.path.join(OUTPUT_DIR, f"{category}.list")
-        print(f"写入文件 {output_file}")
-        with open(output_file, 'w') as f:
-            f.write(merged_content)
         
-        print(f"已更新 {output_file}")
+        # 检查文件是否存在以及内容是否相同
+        file_exists = os.path.exists(output_file)
+        content_identical = False
+        
+        if file_exists:
+            try:
+                with open(output_file, 'r') as f:
+                    existing_content = f.read()
+                content_identical = existing_content == merged_content
+            except Exception as e:
+                print(f"读取现有文件时出错: {e}")
+        
+        if not file_exists or not content_identical:
+            print(f"规则内容已更改，写入文件 {output_file}")
+            with open(output_file, 'w') as f:
+                f.write(merged_content)
+            any_file_updated = True
+            print(f"已更新 {output_file}")
+        else:
+            print(f"规则内容未变化，保持 {output_file} 不变")
+    
+    # 输出总结
+    if any_file_updated:
+        print("已完成规则更新，有文件内容发生变化")
+    else:
+        print("已完成规则检查，所有规则均为最新状态，没有文件被更改")
+        
+    # 创建一个标记文件，用于工作流判断是否有实际更新
+    with open('rules_updated.flag', 'w') as f:
+        f.write('1' if any_file_updated else '0')
 
 if __name__ == "__main__":
     main()
