@@ -30,22 +30,29 @@ jobs:
         pip install requests pytz
         
     - name: 运行更新脚本
-      id: update
       run: python update_rules.py
       
-    - name: 显示目录结构
+    - name: 检查是否有更改
+      id: check_changes
       run: |
-        echo "当前目录结构:"
-        find . -type f -not -path "*/\.*" | sort
-        
+        if git diff --quiet; then
+          echo "changes=false" >> $GITHUB_OUTPUT
+          echo "没有检测到规则变化"
+        else
+          echo "changes=true" >> $GITHUB_OUTPUT
+          echo "检测到规则变化，准备提交"
+        fi
+      
     - name: 提交并推送更改
-      if: steps.update.outputs.has_updates == 'true'
+      if: steps.check_changes.outputs.changes == 'true'
       run: |
+        echo "正在提交更改..."
         git config --global user.name 'github-actions[bot]'
         git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
         git add -A
-        git status  # 显示哪些文件被修改
-        git commit -m "更新规则 - $(date +'%Y-%m-%d')" && git push
+        git status
+        git commit -m "更新规则 - $(TZ='Asia/Shanghai' date +'%Y-%m-%d %H:%M:%S')"
+        git push
         
     - name: 删除工作流运行
       uses: GitRML/delete-workflow-runs@main
