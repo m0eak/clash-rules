@@ -158,6 +158,37 @@ def merge_rules(sources, category_name):
     
     return "\n".join(output_content)
 
+def compare_rule_content(old_content, new_content):
+    """比较规则内容，忽略日期行"""
+    # 分割为行列表
+    old_lines = old_content.split('\n')
+    new_lines = new_content.split('\n')
+    
+    # 过滤掉日期行和空行
+    old_filtered = [line for line in old_lines if not line.startswith('# UPDATED:') and line.strip()]
+    new_filtered = [line for line in new_lines if not line.startswith('# UPDATED:') and line.strip()]
+    
+    # 调试信息
+    print(f"过滤前行数: 旧={len(old_lines)}, 新={len(new_lines)}")
+    print(f"过滤后行数: 旧={len(old_filtered)}, 新={len(new_filtered)}")
+    
+    # 如果长度不同，打印差异
+    if len(old_filtered) != len(new_filtered):
+        print("行数不同，打印差异：")
+        max_lines = min(10, abs(len(old_filtered) - len(new_filtered)))
+        print(f"展示前{max_lines}个不同行...")
+        if len(old_filtered) > len(new_filtered):
+            for i in range(min(max_lines, len(old_filtered))):
+                if i >= len(new_filtered) or old_filtered[i] != new_filtered[i]:
+                    print(f"旧内容第{i+1}行: {old_filtered[i]}")
+        else:
+            for i in range(min(max_lines, len(new_filtered))):
+                if i >= len(old_filtered) or old_filtered[i] != new_filtered[i]:
+                    print(f"新内容第{i+1}行: {new_filtered[i]}")
+    
+    # 比较过滤后的内容
+    return old_filtered == new_filtered
+
 def main():
     """更新所有规则文件的主函数。"""
     # 确保输出目录存在
