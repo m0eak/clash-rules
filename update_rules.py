@@ -158,20 +158,6 @@ def merge_rules(sources, category_name):
     
     return "\n".join(output_content)
 
-# 将这个函数添加在其他函数（如merge_rules）之后，main()函数之前
-def compare_rule_content(old_content, new_content):
-    """比较规则内容，忽略日期行"""
-    # 分割为行列表
-    old_lines = old_content.split('\n')
-    new_lines = new_content.split('\n')
-    
-    # 过滤掉日期行和空行
-    old_filtered = [line for line in old_lines if not line.startswith('# UPDATED:') and line.strip()]
-    new_filtered = [line for line in new_lines if not line.startswith('# UPDATED:') and line.strip()]
-    
-    # 比较过滤后的内容
-    return old_filtered == new_filtered
-
 def main():
     """更新所有规则文件的主函数。"""
     # 确保输出目录存在
@@ -208,9 +194,7 @@ def main():
             try:
                 with open(output_file, 'r') as f:
                     existing_content = f.read()
-               content_identical = compare_rule_content(existing_content, merged_content)
-    except Exception as e:
-        print(f"读取现有文件时出错: {e}")
+                content_identical = compare_rule_content(existing_content, merged_content)
             except Exception as e:
                 print(f"读取现有文件时出错: {e}")
         
