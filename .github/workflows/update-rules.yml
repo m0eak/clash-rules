@@ -35,14 +35,15 @@ jobs:
     - name: 检查是否有更改
       id: check_changes
       run: |
-        if git diff --quiet; then
+        # 只检查rule-provider目录中的变化
+        if git diff --quiet -- rule-provider/; then
           echo "changes=false" >> $GITHUB_OUTPUT
           echo "没有检测到规则变化"
         else
           echo "changes=true" >> $GITHUB_OUTPUT
           echo "检测到规则变化，准备提交"
         fi
-      
+
     - name: 提交并推送更改
       if: steps.check_changes.outputs.changes == 'true'
       run: |
