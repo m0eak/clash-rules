@@ -12,6 +12,7 @@ DOMAIN-SUFFIX,hf-mirror.com
 DOMAIN-SUFFIX,cloudflare.epicgamescdn.com
 DOMAIN-KEYWORD,adobe
 DOMAIN-KEYWORD,photoshop
+DOMAIN-KEYWORD,cliproxy
 # DDNS
 DOMAIN-SUFFIX,ddns.oray.com
 DOMAIN-SUFFIX,4.ipw.cn
