@@ -44,12 +44,20 @@ jobs:
     - name: 检查规则变化
       id: check_changes
       run: |
-        if git diff --quiet -- rule-provider/; then
-          echo "changes=false" >> $GITHUB_OUTPUT
-          echo "没有检测到规则变化"
-        else
+        # 检查未跟踪的文件
+        UNTRACKED=$(git ls-files --others --exclude-standard -- rule-provider/)
+        # 检查已跟踪文件的变化
+        git diff --quiet -- rule-provider/ || CHANGED=true
+    
+        if [ -n "$UNTRACKED" ] || [ "$CHANGED" = "true" ]; then
           echo "changes=true" >> $GITHUB_OUTPUT
           echo "检测到规则变化，准备提交"
+          if [ -n "$UNTRACKED" ]; then
+            echo "新增文件: $UNTRACKED"
+          fi
+        else
+          echo "changes=false" >> $GITHUB_OUTPUT
+          echo "没有检测到规则变化"
         fi
       
     - name: 提交并推送更改
