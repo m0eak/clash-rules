@@ -13,6 +13,7 @@ DOMAIN-SUFFIX,cloudflare.epicgamescdn.com
 DOMAIN-KEYWORD,adobe
 DOMAIN-KEYWORD,photoshop
 DOMAIN-KEYWORD,kaspersky
+DOMAIN-KEYWORD,sony
 # DDNS
 DOMAIN-SUFFIX,ddns.oray.com
 DOMAIN-SUFFIX,4.ipw.cn
