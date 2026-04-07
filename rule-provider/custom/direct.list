@@ -22,6 +22,11 @@ DOMAIN-SUFFIX,myip4.ipip.net
 DOMAIN-SUFFIX,ip.3322.net
 DOMAIN-SUFFIX,v4.myip.la
 DOMAIN-SUFFIX,ipv4.ddnspod.com
+DOMAIN-SUFFIX,glddns.com
+DOMAIN-SUFFIX,goodcloud.xyz
+DOMAIN-SUFFIX,gl-inet.com
+DOMAIN-SUFFIX,ddns.glddns.com
+44.235.104.247
 # higress
 DOMAIN-KEYWORD,higress
 # Process name
